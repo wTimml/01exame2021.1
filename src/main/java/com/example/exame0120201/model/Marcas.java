@@ -2,6 +2,8 @@ package com.example.exame0120201.model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Marcas {
@@ -10,7 +12,18 @@ public class Marcas {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @OneToMany(targetEntity = Modelos.class, mappedBy = "marcas", cascade = {CascadeType.ALL})
+    private Set<Modelos> modelos = new HashSet<Modelos>();
+
     private String name;
+
+    public Set<Modelos> getModelos() {
+        return modelos;
+    }
+
+    public void setModelos(Set<Modelos> modelos) {
+        this.modelos = modelos;
+    }
 
     public Marcas() {
         super();

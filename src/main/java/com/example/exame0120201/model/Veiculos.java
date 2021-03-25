@@ -6,12 +6,13 @@ import javax.persistence.*;
 public class Veiculos {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String plate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "modelos_id")
     private Modelos modelos;
 
     public Veiculos(String plate, Modelos modelos) {

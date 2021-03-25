@@ -32,16 +32,7 @@ public class ModelosService {
         return modeloRepository.findAll();
     }
     public Modelos save(Modelos modelos){
-        System.out.println(modelos);
-        System.out.println(modelos.getName());
-        System.out.println(modelos.getMarcas());
-        if(checkIfMarcasExists(modelos.getName())) {
-            System.out.println("teste if exists true");
-            System.out.println(modelos);
-            return modeloRepository.save(modelos);
-        }
-        System.out.println("if exists false");
-        throw new BadRequestException("Marca não existe");
+        return modeloRepository.save(modelos);
     }
 
     public boolean checkIfMarcasExists(String marcas) {

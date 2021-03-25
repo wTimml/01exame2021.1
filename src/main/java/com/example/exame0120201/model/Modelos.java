@@ -1,6 +1,8 @@
 package com.example.exame0120201.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Modelos {
@@ -11,11 +13,34 @@ public class Modelos {
 
     private String name;
 
-    @ManyToOne
+    @OneToMany(targetEntity = Veiculos.class, mappedBy = "modelos", cascade = {CascadeType.ALL})
+    private Set<Veiculos> veiculos= new HashSet<Veiculos>();
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "marcas_id")
     private Marcas marcas;
 
     public Modelos() {
         super();
+    }
+
+    public Modelos(String name, Set<Veiculos> veiculos) {
+        this.name = name;
+        this.veiculos = veiculos;
+    }
+
+    public Modelos(String name, Set<Veiculos> veiculos, Marcas marcas) {
+        this.name = name;
+        this.veiculos = veiculos;
+        this.marcas = marcas;
+    }
+
+    public Set<Veiculos> getVeiculos() {
+        return veiculos;
+    }
+
+    public void setVeiculos(Set<Veiculos> veiculos) {
+        this.veiculos = veiculos;
     }
 
     public Modelos(String name, Marcas marcas) {
